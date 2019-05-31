@@ -1422,7 +1422,6 @@ MonoBehaviour:
   goalNW: {fileID: 53956083}
   writer: {fileID: 0}
   reader: {fileID: 0}
-  context0: Gray
   contextList:
   - Gray
   - Wood
