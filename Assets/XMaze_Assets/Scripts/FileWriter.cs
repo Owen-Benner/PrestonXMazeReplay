@@ -110,6 +110,7 @@ public class FileWriter : MonoBehaviour
 
     void WriteFrame()
     {
+
         if(!write)
         {
             return;
