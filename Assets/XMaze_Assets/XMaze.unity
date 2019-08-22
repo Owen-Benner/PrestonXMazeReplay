@@ -308,8 +308,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wood: {fileID: 2100000, guid: 891b4b272daf90c42aa59167679e8302, type: 2}
   brick: {fileID: 2100000, guid: 6ad57b487fa8c7a49a7623aaa645afdf, type: 2}
-  stone: {fileID: 2100000, guid: 3fab9b3db6b1074c4ab652620dada8ce, type: 2}
-  metal: {fileID: 2100000, guid: c35f779b4e16148c9ba34fe9a95593b1, type: 2}
+  stone: {fileID: 2100000, guid: 94b5bd0fd995a400ab169c2dd2d63945, type: 2}
+  metal: {fileID: 2100000, guid: 37e9a1deb1d1040729fe44861dccc5f3, type: 2}
   gray: {fileID: 2100000, guid: 2230e2e1665b6ff06a4c2b1c67792301, type: 2}
 --- !u!1 &375235911 stripped
 GameObject:
@@ -366,22 +366,22 @@ PrefabInstance:
     - target: {fileID: 5520277279009583276, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5520277279009583276, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.3420201
+      value: 0.9396927
       objectReference: {fileID: 0}
     - target: {fileID: 5520277279009583276, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5520277279009583276, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9396927
+      value: 0.34202018
       objectReference: {fileID: 0}
     - target: {fileID: 5520277279009583276, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
@@ -396,7 +396,7 @@ PrefabInstance:
     - target: {fileID: 5520277279009583276, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -40
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 5520277279009583276, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
@@ -663,7 +663,7 @@ PrefabInstance:
     - target: {fileID: 5520277279009583276, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5520277279009583276, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
@@ -678,7 +678,7 @@ PrefabInstance:
     - target: {fileID: 5520277279009583276, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.3420201
+      value: 0.34202018
       objectReference: {fileID: 0}
     - target: {fileID: 5520277279009583276, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
@@ -693,7 +693,7 @@ PrefabInstance:
     - target: {fileID: 5520277279009583276, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 220
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 5520277279009583276, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
@@ -1075,22 +1075,22 @@ PrefabInstance:
     - target: {fileID: 5520277279009583276, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5520277279009583276, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.3420201
+      value: 0.9396927
       objectReference: {fileID: 0}
     - target: {fileID: 5520277279009583276, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5520277279009583276, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9396927
+      value: 0.34202018
       objectReference: {fileID: 0}
     - target: {fileID: 5520277279009583276, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
@@ -1105,7 +1105,7 @@ PrefabInstance:
     - target: {fileID: 5520277279009583276, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 40
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 5520277279009583276, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
@@ -1127,11 +1127,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5520277279009583266, guid: ee322d6ed88a798228cf5337845b51ab,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 77b919058df6f66e2997f0483256867f, type: 2}
     - target: {fileID: 3815554527210731977, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
       propertyPath: m_Radius
@@ -1274,8 +1269,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wood: {fileID: 2100000, guid: 891b4b272daf90c42aa59167679e8302, type: 2}
   brick: {fileID: 2100000, guid: 6ad57b487fa8c7a49a7623aaa645afdf, type: 2}
-  stone: {fileID: 2100000, guid: 3fab9b3db6b1074c4ab652620dada8ce, type: 2}
-  metal: {fileID: 2100000, guid: c35f779b4e16148c9ba34fe9a95593b1, type: 2}
+  stone: {fileID: 2100000, guid: 94b5bd0fd995a400ab169c2dd2d63945, type: 2}
+  metal: {fileID: 2100000, guid: 37e9a1deb1d1040729fe44861dccc5f3, type: 2}
   gray: {fileID: 2100000, guid: 2230e2e1665b6ff06a4c2b1c67792301, type: 2}
 --- !u!1001 &1145379473
 PrefabInstance:
@@ -1422,6 +1417,7 @@ MonoBehaviour:
   goalNW: {fileID: 53956083}
   writer: {fileID: 0}
   reader: {fileID: 0}
+  context0: Gray
   contextList:
   - Gray
   - Wood
@@ -1862,7 +1858,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 11fcb298b524464f1bc9dd9cc2f660fb, type: 2}
+      objectReference: {fileID: 2100000, guid: ad21929cc437227528978a23e650a12c, type: 2}
     - target: {fileID: 3815554527210731977, guid: ee322d6ed88a798228cf5337845b51ab,
         type: 3}
       propertyPath: m_Radius

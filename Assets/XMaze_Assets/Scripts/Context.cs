@@ -16,11 +16,6 @@ public class Context : MonoBehaviour
         GetComponent<MeshRenderer>().material = wood;
     }
 
-    void Brick()
-    {
-        GetComponent<MeshRenderer>().material = brick;
-    }
-
     void Stone()
     {
         GetComponent<MeshRenderer>().material = stone;
@@ -29,6 +24,11 @@ public class Context : MonoBehaviour
     void Metal()
     {
         GetComponent<MeshRenderer>().material = metal;
+    }
+
+    void Brick()
+    {
+        GetComponent<MeshRenderer>().material = brick;
     }
 
     void Gray()
