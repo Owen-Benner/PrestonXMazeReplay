@@ -432,15 +432,8 @@ public class Demon : MonoBehaviour
             return;
         }
 
-        try
-        {
             contextN.SendMessage(contextList[contexts[trialNum]]);
             contextS.SendMessage(contextList[contexts[trialNum]]);
-        }
-        catch
-        {
-            Debug.Log("Context machine broke.");
-        }
     }
 
     void ClearContexts()
