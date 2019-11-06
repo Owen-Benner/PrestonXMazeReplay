@@ -22,8 +22,9 @@ public class FileReader : MonoBehaviour
     private string speedStr;
     private string fovStr;
     private string radiusStr;
-    private string visibleStr;
+    //private string visibleStr;
     private string selectStr;
+    private string rewardStr;
     private string returnStr;
     private string totalStr;
     private string startStr;
@@ -34,6 +35,7 @@ public class FileReader : MonoBehaviour
     private string leftRewStr;
     private string rightObjStr;
     private string rightRewStr;
+    private string postHitStr;
 
     private string[] contextArr;
     private string[] holdArr;
@@ -41,6 +43,7 @@ public class FileReader : MonoBehaviour
     private string[] leftRewArr;
     private string[] rightObjArr;
     private string[] rightRewArr;
+    private string[] postHitArr;
 
     // Awake is called when the script instance is being loaded
     void Awake()
@@ -57,8 +60,8 @@ public class FileReader : MonoBehaviour
             speedStr = reader.ReadLine();
             fovStr = reader.ReadLine();
             radiusStr = reader.ReadLine();
-            visibleStr = reader.ReadLine();
             selectStr = reader.ReadLine();
+            rewardStr = reader.ReadLine();
             returnStr = reader.ReadLine();
             totalStr = reader.ReadLine();
             startStr = reader.ReadLine();
@@ -69,7 +72,7 @@ public class FileReader : MonoBehaviour
             leftRewStr = reader.ReadLine();
             rightObjStr = reader.ReadLine();
             rightRewStr = reader.ReadLine();
-
+            postHitStr = reader.ReadLine();
             reader.Close();
         }
         catch(Exception e)
@@ -119,8 +122,8 @@ public class FileReader : MonoBehaviour
                 sprite.GetComponent<SphereCollider>().radius = float.Parse(radiusStr) / sprite.transform.localScale.x;
             }
 
-            demon.visibleTime = float.Parse(visibleStr);
             demon.selectTime = float.Parse(selectStr);
+            demon.rewardTime = float.Parse(rewardStr);
             demon.returnTime = float.Parse(returnStr);
             demon.totalTime = float.Parse(totalStr);
 
@@ -144,6 +147,7 @@ public class FileReader : MonoBehaviour
             leftRewArr = leftRewStr.Split(' ');
             rightObjArr = rightObjStr.Split(' ');
             rightRewArr = rightRewStr.Split(' ');
+            postHitArr = postHitStr.Split(' ');
 
             demon.contexts = new int[contextArr.Length];
             demon.holds = new float[holdArr.Length];
@@ -151,6 +155,7 @@ public class FileReader : MonoBehaviour
             demon.leftRewards = new int[leftRewArr.Length];
             demon.rightObjects = new int[rightObjArr.Length];
             demon.rightRewards = new int[rightRewArr.Length];
+            demon.postHits = new float[postHitArr.Length];
 
             for(int i = 0; i < contextArr.Length; i++)
             {
@@ -175,6 +180,10 @@ public class FileReader : MonoBehaviour
             for(int i = 0; i < rightRewArr.Length; i++)
             {
                 demon.rightRewards[i] = int.Parse(rightRewArr[i]);
+            }
+            for(int i = 0; i < postHitArr.Length; i++)
+            {
+            	demon.postHits[i] = int.Parse(postHitArr[i]);
             }
         }
         catch(Exception e)

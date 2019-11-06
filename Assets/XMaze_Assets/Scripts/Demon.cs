@@ -14,6 +14,7 @@ public class Demon : MonoBehaviour
 
     public float visibleTime;
     public float selectTime;
+    public float rewardTime;
     public float returnTime;
     public float totalTime;
 
@@ -22,6 +23,7 @@ public class Demon : MonoBehaviour
 
     public int[] contexts;
     public float[] holds;
+    public float[] postHits;
 
     public int[] leftObjects;
     public int[] leftRewards;
