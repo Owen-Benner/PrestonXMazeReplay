@@ -11,10 +11,12 @@ public class SimpleMovement : MonoBehaviour
     public float rotSpeed;
     public float sinkSpeed;
 
-	private float hold;
+    private float hold;
 
-	public Vector3 move;
-	public Vector3 rotate;
+    private bool forward;
+
+    public Vector3 move;
+    public Vector3 rotate;
 
     // Start is called before the first frame update
     void Start()
@@ -30,15 +32,21 @@ public class SimpleMovement : MonoBehaviour
 	// Calculate movement if free to move
 	if(hold <= 0f)
 	{
-		float vert = Input.GetAxis("Vertical");
-		if (vert > 0f) // Only move forward.
-	   		move += Time.deltaTime * vert * moveSpeed * cc.transform.forward;
+            float vert = Input.GetAxis("Vertical");
+            if(forward){vert = 1f;}
+            if(vert > 0f) // Only move forward
+                move += Time.deltaTime * vert * moveSpeed *
+                    cc.transform.forward;
 
-		rotate += Time.deltaTime * Input.GetAxis("Horizontal") * rotSpeed * Vector3.up;
+            if(!forward)
+                rotate += Time.deltaTime * Input.GetAxis("Horizontal") *
+                    rotSpeed * Vector3.up;
+            //else
+                // Set rotation?
 	}
 	else
 	{
-		hold -= Time.deltaTime;
+            hold -= Time.deltaTime;
 	}
 
 	// Calculate lower to ground
@@ -56,23 +64,28 @@ public class SimpleMovement : MonoBehaviour
 	rotate = Vector3.zero;
     }
 
-	public void BeginHold(float length)
-	{
-		hold = length;
-	}
+    public void BeginHold(float length)
+    {
+        hold = length;
+    }
 
-	public void EndHold()
-	{
-		hold = 0;
-	}
+    public void EndHold()
+    {
+        hold = 0;
+    }
 
-	public bool IsHolding()
-	{
-		if(hold <= 0)
-		{
-			return false;
-		}
-		return true;
-	}
+    public bool IsHolding()
+    {
+        if(hold <= 0)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public void setForward(bool on)
+    {
+        forward = on;
+    }
+
 }
-

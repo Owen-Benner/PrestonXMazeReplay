@@ -1,4 +1,4 @@
-ï»¿using System;
+œóòßusing System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,7 +55,6 @@ public class Demon : MonoBehaviour
         Hallway,
         HoldA,
         Selection,
-        PostHit,
         Reward,
         HoldB,
         EndRun
@@ -109,13 +108,11 @@ public class Demon : MonoBehaviour
         writer = GameObject.Find("FileWriter").GetComponent<FileWriter>();
         writer.XMazeInit();
 
-        move = GetComponent<SimpleMovement>();
-
-        trialNum = 0;
         segment = segments.Hallway;
-        move.setForward(true);
+        move = GetComponent<SimpleMovement>();
         rewardText.enabled = false;
         scoreText.text = 0.ToString();
+        trialNum = 0;
         if(mode == 2)
         {
             SetContexts();
@@ -125,28 +122,26 @@ public class Demon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-	if(segment == segments.Hallway)
-	{
-	    if(direction == 1 && transform.position.x >= eastXPos)
+		if(segment == segments.Hallway)
+		{
+			if(direction == 1 && transform.position.x >= eastXPos)
             {
                 segment = segments.HoldA;
-                move.setForward(false);
                 choiceStart = Time.time;
                 writer.WriteSegment();
                 move.BeginHold(holds[trialNum]);
                 transform.position = new Vector3(eastXPos, transform.position.y,
-                        zPos);
+					zPos);
                 ClearContexts();
             }
             else if(direction == 2 && transform.position.x <= westXPos)
             {
                 segment = segments.HoldA;
-                move.setForward(false);
                 choiceStart = Time.time;
                 writer.WriteSegment();
-		move.BeginHold(holds[trialNum]);
+				move.BeginHold(holds[trialNum]);
                 transform.position = new Vector3(westXPos, transform.position.y,
-                        zPos);
+			zPos);
                 ClearContexts();
             }
         }
@@ -163,8 +158,7 @@ public class Demon : MonoBehaviour
                 vis = true;
                 if(direction == 1)
                 {
-                    if(mode == 2)
-                    {
+                    if(mode == 2){
                         objectNE.SendMessage("Sprite", leftObjects[trialNum]);
                         objectSE.SendMessage("Sprite", rightObjects[trialNum]);
                     }
@@ -176,8 +170,7 @@ public class Demon : MonoBehaviour
                 }
                 else if(direction == 2)
                 {
-                    if(mode == 2)
-                    {
+                    if(mode == 2){
                         objectSW.SendMessage("Sprite", leftObjects[trialNum]);
                         objectNW.SendMessage("Sprite", rightObjects[trialNum]);
                     }
@@ -202,11 +195,6 @@ public class Demon : MonoBehaviour
                 GiveReward(null);
             }
         }
-
-	else if(segment == segments.PostHit)
-	{
-			
-	}
         
         else if(segment == segments.Reward)
         {
@@ -258,8 +246,7 @@ public class Demon : MonoBehaviour
 
             Rotate(returnRate);
 
-            if(!move.IsHolding())
-            {
+            if(!move.IsHolding()){
                 segment = segments.HoldB;
                 writer.WriteSegment();
                 move.BeginHold(999f);
@@ -405,7 +392,7 @@ public class Demon : MonoBehaviour
             {
                 move.rotate.y += Time.deltaTime * rate;
                 if(transform.eulerAngles.y + move.rotate.y > east &&
-                        transform.eulerAngles.y + move.rotate.y < west)
+                    transform.eulerAngles.y + move.rotate.y < west)
                 {
                     move.rotate.y = east - transform.eulerAngles.y;
                 }
@@ -425,7 +412,7 @@ public class Demon : MonoBehaviour
             {
                 move.rotate.y -= Time.deltaTime * rate;
                 if(transform.eulerAngles.y + move.rotate.y < west &&
-                        transform.eulerAngles.y + move.rotate.y > east)
+                    transform.eulerAngles.y + move.rotate.y > east)
                 {
                     move.rotate.y = west - transform.eulerAngles.y;
                 }
@@ -444,11 +431,11 @@ public class Demon : MonoBehaviour
 
     void SetContexts()
     {
-        if(mode != 2)
-        {
+        if(mode != 2){
             contexts[trialNum] = 0;
             return;
         }
+
             contextN.SendMessage(contextList[contexts[trialNum]]);
             contextS.SendMessage(contextList[contexts[trialNum]]);
     }

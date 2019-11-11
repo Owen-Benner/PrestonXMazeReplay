@@ -1,0 +1,16 @@
+#mode
+#participant
+#run
+#move speed
+#FOV
+#object radius
+#select time
+#reward time
+#return time
+#start position
+#contexts
+#hold times (all 1)
+#left objects
+#left rewards
+#right objects
+#right rewards     
