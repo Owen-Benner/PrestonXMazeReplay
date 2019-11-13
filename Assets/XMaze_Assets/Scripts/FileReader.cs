@@ -63,7 +63,6 @@ public class FileReader : MonoBehaviour
             selectStr = reader.ReadLine();
             rewardStr = reader.ReadLine();
             returnStr = reader.ReadLine();
-            totalStr = reader.ReadLine();
             startStr = reader.ReadLine();
 
             contextStr = reader.ReadLine();
@@ -93,7 +92,7 @@ public class FileReader : MonoBehaviour
         }
         catch(Exception e)
         {
-			Debug.LogError("Error parsing file!!");
+			Debug.LogError("Error parsing file (1)!!");
 			Debug.LogError(e);
 			Application.Quit();
 		}
@@ -125,7 +124,6 @@ public class FileReader : MonoBehaviour
             demon.selectTime = float.Parse(selectStr);
             demon.rewardTime = float.Parse(rewardStr);
             demon.returnTime = float.Parse(returnStr);
-            demon.totalTime = float.Parse(totalStr);
 
             demon.direction = direction;
             if(int.Parse(startStr) == 1)
@@ -139,7 +137,7 @@ public class FileReader : MonoBehaviour
                 player.transform.Rotate(0f, 180f, 0f);
             }
 
-            //Debug.Log("Halfway done parsing!");
+            Debug.Log("Halfway done parsing!");
 
             contextArr = contextStr.Split(' ');
             holdArr = holdStr.Split(' ');
@@ -188,7 +186,7 @@ public class FileReader : MonoBehaviour
         }
         catch(Exception e)
         {
-			Debug.LogError("Error parsing file!!");
+			Debug.LogError("Error parsing file (2)!!");
 			Debug.LogError(e);
 			Application.Quit();
 		}

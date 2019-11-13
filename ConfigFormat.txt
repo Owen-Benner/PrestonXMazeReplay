@@ -13,4 +13,5 @@
 #left objects
 #left rewards
 #right objects
-#right rewards     
+#right rewards
+#post-hit times
