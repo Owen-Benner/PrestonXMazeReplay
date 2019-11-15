@@ -113,9 +113,13 @@ public class Demon : MonoBehaviour
 
         trialNum = 0;
         StartHallway();
-        writer.WriteSegment();
-    }
+        scoreText.text = 0.ToString();
 
+        returnRate = 180f / returnTime;
+        returnSpeedX = 20f / returnTime;
+        returnSpeedZ = 20f / returnTime;
+    }
+        
     // Update is called once per frame
     void Update()
     {
@@ -140,7 +144,7 @@ public class Demon : MonoBehaviour
                 StartSelection();
             }
         }
-        
+
         else if(segment == segments.Selection)
         {
             if(Time.time - selectStart >= selectTime)
@@ -149,16 +153,19 @@ public class Demon : MonoBehaviour
             }
         }
 
-	else if(segment == segments.PostHit)
-	{
-			
-	}
-        
+        else if(segment == segments.PostHit)
+        {
+            if(!move.IsHolding())
+            {
+                StartReward();
+            }
+        }
+
         else if(segment == segments.Reward)
         {
-            if(vis) //Need to wait?
+            if(!move.IsHolding())
             {
-                ClearVisibility();
+                StartReturn();
             }
         }
  
@@ -209,36 +216,16 @@ public class Demon : MonoBehaviour
 
             if(!move.IsHolding())
             {
+                ++trialNum;
                 StartHallway();
             }
- 
-            
-            if(trialNum + 1 == contexts.Length)
-            {
-                rewardText.text = doneMsg + score.ToString();
-                rewardText.enabled = true;
-                scoreText.enabled = false;
-            }
-            if(Time.time - choiceStart >= totalTime)
-            {
-                try
-                {
-                    trialNum++;
-                    StartHallway();
-                }
-                catch
-                {
-                    //Debug.Log("Caught");
-                    segment = segments.EndRun;
-                    writer.WriteSegment();
-                }
-            }
-        }
+       }
 
         else if(segment == segments.EndRun)
         {
             if(endTimer <= 0)
             {
+                Debug.Log("Quitting!");
                 Application.Quit();
             }
             endTimer -= Time.deltaTime;
@@ -299,10 +286,13 @@ public class Demon : MonoBehaviour
                 }
             }
 
-            StartPostHit();
             rewardText.text = preRew + reward.ToString();
             score += reward;
             writer.WriteSelect(select, reward, score);
+            if(obj == null)
+                StartReward();
+            else
+                StartPostHit();
         }
     }
 
@@ -387,16 +377,30 @@ public class Demon : MonoBehaviour
 
     void StartHallway()
     {
+        if(trialNum == contexts.Length)
+        {
+            StartEndRun();
+            return;
+        }
         segment = segments.Hallway;
+        writer.WriteSegment();
         move.setForward(true);
-        move.endHold();
+        move.EndHold();
         rewardText.enabled = false;
-        scoreText.text = 0.ToString();
         if(mode == 2)
         {
             SetContexts();
         }
-    }
+
+        if(direction == 1)
+            transform.position = new Vector3(westXPos, transform.position.y,
+                    zPos);
+        else if(direction == 2)
+            transform.position = new Vector3(eastXPos, transform.position.y,
+                    zPos);
+        else
+            Debug.Log("Direction machine broke.");
+}
 
     void StartHoldA()
     {
@@ -405,17 +409,17 @@ public class Demon : MonoBehaviour
         choiceStart = Time.time;
         writer.WriteSegment();
         move.BeginHold(holds[trialNum]);
-        transform.position = new Vector3(eastXPos, transform.position.y,
-                zPos);
-        ClearContexts();
-    }
 
-    void StartSelection()
-    {
-        segment = segments.Selection;
-        selectStart = Time.time;
-        writer.WriteSegment();
-        vis = true;
+        if(direction == 1)
+            transform.position = new Vector3(eastXPos, transform.position.y,
+                    zPos);
+        else if(direction == 2)
+            transform.position = new Vector3(westXPos, transform.position.y,
+                    zPos);
+        else
+            Debug.Log("Direction machine broke.");
+
+        ClearContexts();
         if(direction == 1)
         {
             if(mode == 2)
@@ -446,12 +450,31 @@ public class Demon : MonoBehaviour
         {
             Debug.Log("Direction machine broke.");
         }
+        vis = true;
+    }
+
+    void StartSelection()
+    {
+        segment = segments.Selection;
+        selectStart = Time.time;
+        writer.WriteSegment();
     }
 
     void StartPostHit()
     {
         segment = segments.PostHit;
-        move.BeginHold(returnTime);
+        writer.WriteSegment();
+        move.BeginHold(postHits[trialNum]);
+   }
+
+    void StartReward()
+    {
+        segment = segments.Reward;
+        writer.WriteSegment();
+        rewardText.enabled = true;
+        scoreText.text = score.ToString();
+        move.BeginHold(rewardTime);
+        ClearVisibility();
 
         if(direction == 1)
         {
@@ -467,19 +490,20 @@ public class Demon : MonoBehaviour
         }
     }
 
-    void StartReward()
-    {
-        segment = segments.Reward;
-        rewardText.enabled = true;
-    }
-
     void StartReturn()
     {
         segment = segments.Return;
+        writer.WriteSegment();
+        move.BeginHold(returnTime);
     }
 
     void StartEndRun()
     {
+        rewardText.text = doneMsg + score.ToString();
+        rewardText.enabled = true;
+        scoreText.enabled = false;
         segment = segments.EndRun;
+        move.BeginHold(endTimer);
+        writer.WriteSegment();
     }
 }

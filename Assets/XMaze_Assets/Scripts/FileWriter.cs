@@ -15,9 +15,11 @@ public class FileWriter : MonoBehaviour
 
     public int frameFreq = 10;
 
-    public string format0 = "%Frame frameNum: distHoriz distDiag pose time xPos zPos";
+    public string format0 = "%Frame frameNum: distHoriz distDiag pose time" 
+        + " xPos zPos";
     public string format1 = "%Selection trialNum: chamber reward score";
-    public string format2 = "%Segment: distHoriz distDiag pose time xPos zPos trialNum trialTime newSegment";
+    public string format2 = "%Segment: distHoriz distDiag pose time xPos zPos"
+        + " trialTime trialNum newSegment";
     public string partCode;
 
     private string fileName;
@@ -56,7 +58,8 @@ public class FileWriter : MonoBehaviour
         try
         {
             lastRunReader = new StreamReader(fileName);
-            Debug.LogError("Repeated log filename! Update Config.txt or remove last log file from directory.");
+            Debug.LogError("Repeated log filename! Update Config.txt or remove"
+                    + " last log file from directory.");
             Application.Quit();
             return;
         }
@@ -65,7 +68,8 @@ public class FileWriter : MonoBehaviour
         writer = new StreamWriter(fileName);
         framePer = 1f / (float)frameFreq;
 
-        writer.WriteLine(partCode + spc + mode + spc + runNum + spc + direction);
+        writer.WriteLine(partCode + spc + mode + spc + runNum + spc
+                + direction);
 
         writer.WriteLine(format0);
         writer.WriteLine(format1);
@@ -123,25 +127,33 @@ public class FileWriter : MonoBehaviour
             if (demon.direction == 1)
             {
                 distHori = Mathf.Abs(playPos.position.x - demon.eastXPos);
-                distDiag = Mathf.Sqrt(distHori * distHori + Mathf.Pow(playPos.position.z - demon.zPos, 2f));
+                distDiag = Mathf.Sqrt(distHori * distHori
+                        + Mathf.Pow(playPos.position.z - demon.zPos, 2f));
             }
             else
             {
                 distHori = Mathf.Abs(playPos.position.x - demon.westXPos);
-                distDiag = Mathf.Sqrt(distHori * distHori + Mathf.Pow(playPos.position.z - demon.zPos, 2f));
+                distDiag = Mathf.Sqrt(distHori * distHori
+                        + Mathf.Pow(playPos.position.z - demon.zPos, 2f));
             }
 
-            writer.WriteLine("Frame "
-            + frame.ToString() + ":" + spc
-            + string.Format("{0:N3}", distHori) + spc + string.Format("{0:N3}", distDiag) + spc + string.Format("{0:N3}", playPos.eulerAngles.y)
-                + spc + string.Format("{0:N3}", Time.time - startTime) + spc + string.Format("{0:N3}", playPos.position.x) + spc + string.Format("{0:N3}", playPos.position.z));
+            writer.WriteLine("Frame " + frame.ToString() + ":" + spc
+                    + string.Format("{0:N3}", distHori) + spc
+                    + string.Format("{0:N3}", distDiag) + spc
+                    + string.Format("{0:N3}", playPos.eulerAngles.y) + spc
+                    + string.Format("{0:N3}", Time.time - startTime) + spc
+                    + string.Format("{0:N3}", playPos.position.x) + spc
+                    + string.Format("{0:N3}", playPos.position.z));
         }
         else
         {
-            writer.WriteLine("Frame "
-            + frame.ToString() + ":" + spc
-            + string.Format("{0:N3}", 0f) + spc + string.Format("{0:N3}", 0f) + spc + string.Format("{0:N3}", 0f)
-                + spc + string.Format("{0:N3}", Time.time - startTime) + spc + string.Format("{0:N3}", 0f) + spc + string.Format("{0:N3}", 0f));
+            writer.WriteLine("Frame " + frame.ToString() + ":" + spc
+                    + string.Format("{0:N3}", 0f) + spc
+                    + string.Format("{0:N3}", 0f) + spc
+                    + string.Format("{0:N3}", 0f) + spc
+                    + string.Format("{0:N3}", Time.time - startTime) + spc
+                    + string.Format("{0:N3}", 0f) + spc
+                    + string.Format("{0:N3}", 0f));
         }
 
         frame++;
@@ -155,12 +167,14 @@ public class FileWriter : MonoBehaviour
         if(demon.direction == 1)
         {
             distHori = Mathf.Abs(playPos.position.x - demon.eastXPos);
-            distDiag = Mathf.Sqrt(distHori * distHori + Mathf.Pow(playPos.position.z - demon.zPos, 2f));
+            distDiag = Mathf.Sqrt(distHori * distHori
+                    + Mathf.Pow(playPos.position.z - demon.zPos, 2f));
         }
         else
         {
             distHori = Mathf.Abs(playPos.position.x - demon.westXPos);
-            distDiag = Mathf.Sqrt(distHori * distHori + Mathf.Pow(playPos.position.z - demon.zPos, 2f));
+            distDiag = Mathf.Sqrt(distHori * distHori
+                    + Mathf.Pow(playPos.position.z - demon.zPos, 2f));
         }
 
         if(demon.segment == Demon.segments.Hallway)
@@ -170,14 +184,21 @@ public class FileWriter : MonoBehaviour
 
         float trialTime = Time.time - trialStart;
 
-        writer.WriteLine("Segment:" + spc + string.Format("{0:N3}", distHori) + spc + string.Format("{0:N3}", distDiag) + spc + string.Format("{0:N3}", playPos.eulerAngles.y)
-            + spc + string.Format("{0:N3}", Time.time - startTime) + spc + string.Format("{0:N3}", playPos.position.x) + spc + string.Format("{0:N3}", playPos.position.z)
-            + spc + string.Format("{0:N3}", trialTime) + spc + demon.trialNum.ToString() + spc + demon.segment.ToString());
+        writer.WriteLine("Segment:" + spc + string.Format("{0:N3}", distHori)
+                + spc + string.Format("{0:N3}", distDiag) + spc
+                + string.Format("{0:N3}", playPos.eulerAngles.y) + spc
+                + string.Format("{0:N3}", Time.time - startTime) + spc
+                + string.Format("{0:N3}", playPos.position.x) + spc
+                + string.Format("{0:N3}", playPos.position.z) + spc
+                + string.Format("{0:N3}", trialTime) + spc
+                + demon.trialNum.ToString() + spc + demon.segment.ToString());
     }
 
     public void WriteSelect(int select, int reward, int score)
     {
-        writer.WriteLine("Selection " + demon.trialNum.ToString() + ":" + spc + select.ToString() + spc + reward.ToString() + spc + score.ToString());
+        writer.WriteLine("Selection " + demon.trialNum.ToString() + ":" + spc
+                + select.ToString() + spc + reward.ToString() + spc
+                + score.ToString());
     }
 
 }
