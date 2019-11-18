@@ -16,7 +16,6 @@ public class Demon : MonoBehaviour
     public float selectTime;
     public float rewardTime;
     public float returnTime;
-    public float totalTime;
 
     public int direction;
     public int trialNum = 0;
@@ -94,6 +93,8 @@ public class Demon : MonoBehaviour
 
     private int score;
 
+    private bool finSelect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -157,7 +158,13 @@ public class Demon : MonoBehaviour
         {
             if(!move.IsHolding())
             {
-                StartReward();
+                if(finSelect)
+                    StartReward();
+                else
+                {
+                    move.BeginHold(postHits[trialNum]);
+                    finSelect = true;
+                }
             }
         }
 
@@ -408,7 +415,16 @@ public class Demon : MonoBehaviour
         move.setForward(false);
         choiceStart = Time.time;
         writer.WriteSegment();
-        move.BeginHold(holds[trialNum]);
+
+        {   // Catch up on time
+            float holdTime = holds[trialNum];
+            float dif = writer.getRunTime() % 1; 
+            if(dif > 0.5)
+                holdTime += (1 - dif);
+            else
+                holdTime -= dif;
+            move.BeginHold(holdTime);
+        }
 
         if(direction == 1)
             transform.position = new Vector3(eastXPos, transform.position.y,
@@ -450,6 +466,8 @@ public class Demon : MonoBehaviour
         {
             Debug.Log("Direction machine broke.");
         }
+
+        Debug.Log(leftObjects[trialNum] + ", " + rightObjects[trialNum]);
         vis = true;
     }
 
@@ -464,7 +482,8 @@ public class Demon : MonoBehaviour
     {
         segment = segments.PostHit;
         writer.WriteSegment();
-        move.BeginHold(postHits[trialNum]);
+        move.BeginHold(selectTime - (Time.time - selectStart));
+        finSelect = false;
    }
 
     void StartReward()

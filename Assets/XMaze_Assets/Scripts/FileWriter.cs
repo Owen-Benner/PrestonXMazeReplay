@@ -201,4 +201,9 @@ public class FileWriter : MonoBehaviour
                 + score.ToString());
     }
 
+    public float getRunTime()
+    {
+        return Time.time - startTime;
+    }
+
 }
