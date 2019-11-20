@@ -55,6 +55,7 @@ public class Demon : MonoBehaviour
         HoldA,
         Selection,
         PostHit,
+        HoldB,
         Reward,
         Return,
         EndRun
@@ -92,8 +93,6 @@ public class Demon : MonoBehaviour
     private bool vis;
 
     private int score;
-
-    private bool finSelect;
 
     // Start is called before the first frame update
     void Start()
@@ -158,13 +157,15 @@ public class Demon : MonoBehaviour
         {
             if(!move.IsHolding())
             {
-                if(finSelect)
-                    StartReward();
-                else
-                {
-                    move.BeginHold(postHits[trialNum]);
-                    finSelect = true;
-                }
+                StartHoldB();
+            }
+        }
+
+        else if(segment == segments.HoldB)
+        {
+            if(!move.IsHolding())
+            {
+                StartReward();
             }
         }
 
@@ -483,8 +484,14 @@ public class Demon : MonoBehaviour
         segment = segments.PostHit;
         writer.WriteSegment();
         move.BeginHold(selectTime - (Time.time - selectStart));
-        finSelect = false;
-   }
+    }
+
+    void StartHoldB()
+    {
+        segment = segments.HoldB;
+        writer.WriteSegment();
+        move.BeginHold(postHits[trialNum]);
+    }
 
     void StartReward()
     {
