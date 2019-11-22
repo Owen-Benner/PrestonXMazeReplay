@@ -9,9 +9,9 @@
 #return time
 #start position
 #contexts
-#hold times (all 1)
+#hold A times (all 1)
 #left objects
 #left rewards
 #right objects
 #right rewards
-#post-hit times
+#hold B times
