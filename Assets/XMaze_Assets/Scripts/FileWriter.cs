@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using Tobii.Research;
 
 public class FileWriter : MonoBehaviour
 {
@@ -15,8 +16,7 @@ public class FileWriter : MonoBehaviour
 
     public int frameFreq = 10;
 
-    public string format0 = "%Frame frameNum: distHoriz distDiag pose time" 
-        + " xPos zPos";
+    public string format0 = "%Frame frameNum: distHoriz distDiag pose time xPos"        + "  zPos leftEyeX leftEyeY leftPupil rightEyeX rightEyeY rightPupil";
     public string format1 = "%Selection trialNum: chamber reward score";
     public string format2 = "%Segment: distHoriz distDiag pose time xPos zPos"
         + " trialTime trialNum newSegment";
@@ -36,14 +36,76 @@ public class FileWriter : MonoBehaviour
     StreamReader lastRunReader;
     StreamWriter writer;
 
+    IEyeTracker eyeTracker;
+
     private bool write = false;
     private bool XMazeLoaded = false;
 
     private float startTime;
 
+    private static GazeDataEventArgs gaze;
+
+    private void WriteGaze()
+    {
+        GazePoint point = gaze.LeftEye.GazePoint;
+        if(point.Validity == Validity.Valid)
+        {
+            writer.Write(spc + string.Format("{0:N3}",
+                + point.PositionOnDisplayArea.X) + spc + string.Format("{0:N3}",
+                point.PositionOnDisplayArea.Y));
+        }
+        else
+        {
+            writer.Write(spc + "invalid" + spc + "invalid");
+        }
+
+        PupilData pupil = gaze.LeftEye.Pupil;
+        if(pupil.Validity == Validity.Valid)
+        {
+            writer.Write(spc + string.Format("{0:N3}", pupil.PupilDiameter));
+        }
+        else
+        {
+            writer.Write(spc + "invalid");
+        }
+
+        point = gaze.RightEye.GazePoint;
+        if (point.Validity == Validity.Valid)
+        {
+            writer.Write(spc + string.Format("{0:N3}",
+                + point.PositionOnDisplayArea.X) + spc + string.Format("{0:N3}",
+                point.PositionOnDisplayArea.Y));
+        }
+        else
+        {
+            writer.Write(spc + "invalid" + spc + "invalid");
+        }
+
+        pupil = gaze.RightEye.Pupil;
+        if (pupil.Validity == Validity.Valid)
+        {
+            writer.WriteLine(spc + string.Format("{0:N3}",
+                pupil.PupilDiameter));
+        }
+        else
+        {
+            writer.WriteLine(spc + "invalid");
+        }
+    }
+
     // Start is called before the first frame update
     private void Start()
     {
+        try
+        {
+            eyeTracker = EyeTrackingOperations.FindAllEyeTrackers()[0];
+            eyeTracker.GazeDataReceived += EyeTracker_GazeDataReceived;
+        }
+        catch
+        {
+            Debug.LogError("Eye tracker not found!");
+        }
+
         fileName = partCode + "_";
         if (mode == 1)
         {
@@ -76,6 +138,12 @@ public class FileWriter : MonoBehaviour
         writer.WriteLine(format2);
 
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void EyeTracker_GazeDataReceived(object sender, GazeDataEventArgs e)
+    {
+        gaze = e;
+        Debug.Log("Recieved gaze data.");
     }
 
     public void XMazeInit()
@@ -137,23 +205,43 @@ public class FileWriter : MonoBehaviour
                         + Mathf.Pow(playPos.position.z - demon.zPos, 2f));
             }
 
-            writer.WriteLine("Frame " + frame.ToString() + ":" + spc
+            writer.Write("Frame " + frame.ToString() + ":" + spc
                     + string.Format("{0:N3}", distHori) + spc
                     + string.Format("{0:N3}", distDiag) + spc
                     + string.Format("{0:N3}", playPos.eulerAngles.y) + spc
                     + string.Format("{0:N3}", Time.time - startTime) + spc
                     + string.Format("{0:N3}", playPos.position.x) + spc
                     + string.Format("{0:N3}", playPos.position.z));
+
+            // Add gaze data here
+            try
+            {
+                WriteGaze();
+            }
+            catch
+            {
+                writer.WriteLine(spc + "Error");
+            }
         }
         else
         {
-            writer.WriteLine("Frame " + frame.ToString() + ":" + spc
+            writer.Write("Frame " + frame.ToString() + ":" + spc
                     + string.Format("{0:N3}", 0f) + spc
                     + string.Format("{0:N3}", 0f) + spc
                     + string.Format("{0:N3}", 0f) + spc
                     + string.Format("{0:N3}", Time.time - startTime) + spc
                     + string.Format("{0:N3}", 0f) + spc
                     + string.Format("{0:N3}", 0f));
+
+            // Add gaze data here
+            try
+            {
+                WriteGaze();
+            }
+            catch
+            {
+                writer.WriteLine(spc + "Error writing gaze data!");
+            }
         }
 
         frame++;
@@ -204,6 +292,17 @@ public class FileWriter : MonoBehaviour
     public float getRunTime()
     {
         return Time.time - startTime;
+    }
+
+    private void OnApplicationQuit()
+    {
+        try
+        {
+            Debug.Log("Terminating eye tracker operation.");
+            eyeTracker.GazeDataReceived -= EyeTracker_GazeDataReceived;
+            EyeTrackingOperations.Terminate();
+        }
+        catch{}
     }
 
 }
