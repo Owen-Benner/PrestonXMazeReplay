@@ -106,6 +106,7 @@ public class Demon : MonoBehaviour
             Debug.Log("Start with Gray_Screen.");
         }
         reader.XMazeInit();
+//Check mode here.
         writer = GameObject.Find("FileWriter").GetComponent<FileWriter>();
         writer.XMazeInit();
 

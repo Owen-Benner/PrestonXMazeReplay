@@ -76,10 +76,10 @@ public class FileReader : MonoBehaviour
         }
         catch(Exception e)
         {
-			Debug.LogError("Error reading file!!");
-			Debug.LogError(e);
-			Application.Quit();
-		}
+            Debug.LogError("Error reading file!!");
+            Debug.LogError(e);
+	    Application.Quit();
+	}
 
         try
         {
@@ -92,10 +92,10 @@ public class FileReader : MonoBehaviour
         }
         catch(Exception e)
         {
-			Debug.LogError("Error parsing file (1)!!");
-			Debug.LogError(e);
-			Application.Quit();
-		}
+            Debug.LogError("Error parsing file (1)!!");
+            Debug.LogError(e);
+            Application.Quit();
+        }
 
         DontDestroyOnLoad(gameObject);
     }
