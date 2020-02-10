@@ -21,7 +21,7 @@ public class LogReader : MonoBehaviour
             x = _x;
             y = _y;
         }
-    }
+    };
 
     public struct Selection
     {
@@ -33,7 +33,7 @@ public class LogReader : MonoBehaviour
             reward = r;
             score = s;
         }
-    }
+    };
 
     public struct Segment
     {
@@ -51,7 +51,7 @@ public class LogReader : MonoBehaviour
             y = _y;
             segment = s;
         }
-    }
+    };
 
     public void ReadLog(string filename, List<Frame> frames,
         List<Selection> selections, List<Segment> segments)

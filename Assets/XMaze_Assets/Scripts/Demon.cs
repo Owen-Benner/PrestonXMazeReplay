@@ -78,6 +78,7 @@ public class Demon : MonoBehaviour
 
     public FileWriter writer;
     public FileReader reader;
+    public LogReader logReader;
 
     public string [] contextList =
     {
@@ -94,6 +95,10 @@ public class Demon : MonoBehaviour
 
     private int score;
 
+    private List<LogReader.Frame> frames;
+    private List<LogReader.Selection> selects;
+    private List<LogReader.Segment> segs;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -106,8 +111,14 @@ public class Demon : MonoBehaviour
             Debug.Log("Start with Gray_Screen.");
         }
         reader.XMazeInit();
-//Check mode here.
-        writer = GameObject.Find("FileWriter").GetComponent<FileWriter>();
+        
+	if(mode == 3)
+	{
+	    logReader = GameObject.Find("LogReader").GetComponent<LogReader>();
+            logReader.ReadLog("Test", frames, selects, segs);
+	}
+
+	writer = GameObject.Find("FileWriter").GetComponent<FileWriter>();
         writer.XMazeInit();
 
         move = GetComponent<SimpleMovement>();
