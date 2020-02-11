@@ -111,17 +111,18 @@ public class Demon : MonoBehaviour
             Debug.Log("Start with Gray_Screen.");
         }
         reader.XMazeInit();
-        
-	if(mode == 3)
-	{
-	    logReader = GameObject.Find("LogReader").GetComponent<LogReader>();
+
+        if(mode == 3)
+        {
+            logReader = GameObject.Find("LogReader").GetComponent<LogReader>();
             logReader.ReadLog("Test", frames, selects, segs);
-	}
-
-	writer = GameObject.Find("FileWriter").GetComponent<FileWriter>();
-        writer.XMazeInit();
-
-        move = GetComponent<SimpleMovement>();
+        }
+        else
+        {
+            writer = GameObject.Find("FileWriter").GetComponent<FileWriter>();
+            writer.XMazeInit();
+            move = GetComponent<SimpleMovement>();
+        }
 
         trialNum = 0;
         StartHallway();
@@ -131,13 +132,13 @@ public class Demon : MonoBehaviour
         returnSpeedX = 20f / returnTime;
         returnSpeedZ = 20f / returnTime;
     }
-        
+
     // Update is called once per frame
     void Update()
     {
-	if(segment == segments.Hallway)
-	{
-	    if(direction == 1 && transform.position.x >= eastXPos)
+        if(segment == segments.Hallway)
+        {
+            if(direction == 1 && transform.position.x >= eastXPos)
             {
                 StartHoldA();
             }
@@ -146,7 +147,7 @@ public class Demon : MonoBehaviour
                 StartHoldA();
             }
         }
- 
+
         else if(segment == segments.HoldA)
         {
             Rotate(holdTurnRate);
@@ -188,7 +189,7 @@ public class Demon : MonoBehaviour
                 StartReturn();
             }
         }
- 
+
         else if(segment == segments.Return)
         {
             if(direction == 2)
