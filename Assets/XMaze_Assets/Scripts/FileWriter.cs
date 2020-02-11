@@ -20,11 +20,12 @@ public class FileWriter : MonoBehaviour
     public string format1 = "%Selection trialNum: chamber reward score";
     public string format2 = "%Segment: distHoriz distDiag pose time xPos zPos"
         + " trialTime trialNum newSegment";
-    public string partCode;
-
+ 
     private string fileName;
+    public string partCode;
     public int runNum;
     public int mode;
+ 
     public int direction;
 
     private float framePer;

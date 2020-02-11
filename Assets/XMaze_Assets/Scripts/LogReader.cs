@@ -53,6 +53,15 @@ public class LogReader : MonoBehaviour
         }
     };
 
+    private string fileName;
+    public string partCode;
+    public int runNum;
+    public int mode;
+
+    public List<LogReader.Frame> frames;
+    public List<LogReader.Selection> selects;
+    public List<LogReader.Segment> segs;
+
     public void ReadLog(string filename, List<Frame> frames,
         List<Selection> selections, List<Segment> segments)
     {
@@ -102,7 +111,18 @@ public class LogReader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        fileName = partCode + "_";
+        if (mode == 1)
+        {
+            fileName += "practice";
+        }
+        else
+        {
+            fileName += "task";
+        }
+        fileName += "_run" + runNum + ".xml";
+
+        ReadLog(fileName, frames, selects, segs);
     }
 
     // Update is called once per frame

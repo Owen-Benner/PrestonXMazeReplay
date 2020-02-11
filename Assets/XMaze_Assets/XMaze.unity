@@ -1310,7 +1310,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202369853}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0face3fead9c3b2bb4f04a7cde07c78, type: 3}
   m_Name: 
@@ -1339,7 +1339,6 @@ MonoBehaviour:
   selectTime: 0
   rewardTime: 0
   returnTime: 0
-  totalTime: 0
   direction: 0
   trialNum: 0
   contexts: 
@@ -1375,12 +1374,25 @@ MonoBehaviour:
   goalNW: {fileID: 53956083}
   writer: {fileID: 0}
   reader: {fileID: 0}
+  logReader: {fileID: 0}
   contextList:
   - Gray
   - Wood
   - Brick
   - Stone
   - Metal
+--- !u!114 &1202369856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202369853}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b94eb6c4defd461f86c2ce2bab0bb4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1809029950
 GameObject:
   m_ObjectHideFlags: 0

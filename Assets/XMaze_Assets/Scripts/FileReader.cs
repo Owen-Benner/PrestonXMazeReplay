@@ -10,6 +10,7 @@ public class FileReader : MonoBehaviour
     public GameObject player;
     public Demon demon;
     public FileWriter writer;
+    public LogReader logReader;
 
     public GameObject[] sprites;
 
@@ -48,8 +49,6 @@ public class FileReader : MonoBehaviour
     // Awake is called when the script instance is being loaded
     void Awake()
     {
-        writer = GameObject.Find("FileWriter").GetComponent<FileWriter>();
-
         try
         {
             StreamReader reader = new StreamReader("Config.txt");
@@ -85,8 +84,11 @@ public class FileReader : MonoBehaviour
         {
             mode = int.Parse(modeStr);
             writer.mode = mode;
+            logReader.mode = mode;
             writer.partCode = partStr;
+            logReader.partCode = partStr;
             writer.runNum = int.Parse(runStr);
+            logReader.runNum = writer.runNum;
             direction = int.Parse(startStr);
             writer.direction = direction;
         }
@@ -95,6 +97,18 @@ public class FileReader : MonoBehaviour
             Debug.LogError("Error parsing file (1)!!");
             Debug.LogError(e);
             Application.Quit();
+        }
+
+        logReader = GameObject.Find("LogReader").GetComponent<LogReader>();
+        writer = GameObject.Find("FileWriter").GetComponent<FileWriter>();
+ 
+        if(mode == 3)
+        {
+            logReader.enabled = true;
+        }
+        else
+        {
+            writer.enabled = true;
         }
 
         DontDestroyOnLoad(gameObject);
@@ -109,7 +123,8 @@ public class FileReader : MonoBehaviour
         try
         {
             demon.mode = mode;
-            player.GetComponent<SimpleMovement>().moveSpeed = float.Parse(speedStr);
+            player.GetComponent<SimpleMovement>().moveSpeed
+                = float.Parse(speedStr);
 
             foreach(Camera c in player.GetComponentsInChildren<Camera>())
             {
@@ -118,7 +133,8 @@ public class FileReader : MonoBehaviour
 
             foreach(GameObject sprite in sprites)
             {
-                sprite.GetComponent<SphereCollider>().radius = float.Parse(radiusStr) / sprite.transform.localScale.x;
+                sprite.GetComponent<SphereCollider>().radius
+                    = float.Parse(radiusStr) / sprite.transform.localScale.x;
             }
 
             demon.selectTime = float.Parse(selectStr);

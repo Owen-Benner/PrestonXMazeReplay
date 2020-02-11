@@ -47,6 +47,8 @@ public class Demon : MonoBehaviour
 
     SimpleMovement move;
 
+    FrameMovement frameMove;
+
     public float endTimer = 5f;
 
     public enum segments
@@ -95,10 +97,6 @@ public class Demon : MonoBehaviour
 
     private int score;
 
-    private List<LogReader.Frame> frames;
-    private List<LogReader.Selection> selects;
-    private List<LogReader.Segment> segs;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -115,13 +113,15 @@ public class Demon : MonoBehaviour
         if(mode == 3)
         {
             logReader = GameObject.Find("LogReader").GetComponent<LogReader>();
-            logReader.ReadLog("Test", frames, selects, segs);
+            frameMove = GetComponent<FrameMovement>();
+            frameMove.enabled = true;
         }
         else
         {
             writer = GameObject.Find("FileWriter").GetComponent<FileWriter>();
             writer.XMazeInit();
             move = GetComponent<SimpleMovement>();
+            move.enabled = true; 
         }
 
         trialNum = 0;
