@@ -11,6 +11,7 @@ public class FileReader : MonoBehaviour
     public Demon demon;
     public FileWriter writer;
     public LogReader logReader;
+    public SceneLoader sceneLoader;
 
     public GameObject[] sprites;
 
@@ -80,11 +81,17 @@ public class FileReader : MonoBehaviour
 	    Application.Quit();
 	}
 
+        logReader = GameObject.Find("LogReader").GetComponent<LogReader>();
+        writer = GameObject.Find("FileWriter").GetComponent<FileWriter>();
+        sceneLoader = GameObject.Find("SceneLoader")
+            .GetComponent<SceneLoader>();
+
         try
         {
             mode = int.Parse(modeStr);
             writer.mode = mode;
             logReader.mode = mode;
+            sceneLoader.mode = mode;
             writer.partCode = partStr;
             logReader.partCode = partStr;
             writer.runNum = int.Parse(runStr);
@@ -99,9 +106,6 @@ public class FileReader : MonoBehaviour
             Application.Quit();
         }
 
-        logReader = GameObject.Find("LogReader").GetComponent<LogReader>();
-        writer = GameObject.Find("FileWriter").GetComponent<FileWriter>();
- 
         if(mode == 3)
         {
             logReader.enabled = true;

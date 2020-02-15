@@ -47,8 +47,6 @@ public class Demon : MonoBehaviour
 
     SimpleMovement move;
 
-    FrameMovement frameMove;
-
     public float endTimer = 5f;
 
     public enum segments
@@ -80,7 +78,6 @@ public class Demon : MonoBehaviour
 
     public FileWriter writer;
     public FileReader reader;
-    public LogReader logReader;
 
     public string [] contextList =
     {
@@ -110,11 +107,10 @@ public class Demon : MonoBehaviour
         }
         reader.XMazeInit();
 
-        if(mode == 3)
+        if(mode == 3) //Switch demons.
         {
-            logReader = GameObject.Find("LogReader").GetComponent<LogReader>();
-            frameMove = GetComponent<FrameMovement>();
-            frameMove.enabled = true;
+            GetComponent<ReplayDemon>().enabled = true;
+            this.enabled = false;
         }
         else
         {
@@ -122,10 +118,10 @@ public class Demon : MonoBehaviour
             writer.XMazeInit();
             move = GetComponent<SimpleMovement>();
             move.enabled = true; 
+            trialNum = 0;
+            StartHallway();
         }
 
-        trialNum = 0;
-        StartHallway();
         scoreText.text = 0.ToString();
 
         returnRate = 180f / returnTime;

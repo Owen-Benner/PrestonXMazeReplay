@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 410592584}
   - component: {fileID: 410592585}
   m_Layer: 0
-  m_Name: Scene_Loader
+  m_Name: SceneLoader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,6 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countDown: 4
   countDownStart: 0
+  mode: 0
 --- !u!1001 &1187084102
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -421,6 +422,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FileWriter
       objectReference: {fileID: 0}
+    - target: {fileID: 2878216891937078934, guid: 123b985d49034745780b04e643fac665,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2878216891937078932, guid: 123b985d49034745780b04e643fac665,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -576,6 +582,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LogReader
+      objectReference: {fileID: 0}
+    - target: {fileID: 7147627838451925993, guid: b751ba32815a2caf9a98035642c8b6af,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 13669380823655822, guid: b751ba32815a2caf9a98035642c8b6af,
         type: 3}

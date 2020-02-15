@@ -9,24 +9,24 @@ public class LogReader : MonoBehaviour
 
     public struct Frame
     {
-        float pose;
-        float time;
-        float x;
-        float y;
+        public float pose;
+        public float time;
+        public float x;
+        public float z;
 
-        public Frame(float p, float t, float _x, float _y)
+        public Frame(float p, float t, float _x, float _z)
         {
             pose = p;
             time = t;
             x = _x;
-            y = _y;
+            z = _z;
         }
     };
 
     public struct Selection
     {
-        int reward;
-        int score;
+        public int reward;
+        public int score;
 
         public Selection(int r, int s)
         {
@@ -37,11 +37,11 @@ public class LogReader : MonoBehaviour
 
     public struct Segment
     {
-        float pose;
-        float time;
-        float x;
-        float y;
-        string segment;
+        public float pose;
+        public float time;
+        public float x;
+        public float y;
+        public string segment;
 
         public Segment(float p, float t, float _x, float _y, string s)
         {
@@ -62,8 +62,8 @@ public class LogReader : MonoBehaviour
     public List<LogReader.Selection> selects;
     public List<LogReader.Segment> segs;
 
-    public void ReadLog(string filename, List<Frame> frames,
-        List<Selection> selections, List<Segment> segments)
+    public void ReadLog(string filename, List<Frame> _frames,
+        List<Selection> _selects, List<Segment> _segs)
     {
         try
         {
@@ -74,7 +74,8 @@ public class LogReader : MonoBehaviour
             reader.ReadLine();
             reader.ReadLine();
 
-            while(!reader.EndOfStream)
+            bool breakFlag = false;
+            while(!reader.EndOfStream && !breakFlag)
             {    
                 string [] line = reader.ReadLine().Split(' ');
                 if(line[0] == "Frame")
@@ -82,27 +83,31 @@ public class LogReader : MonoBehaviour
                     Frame frame = new Frame(Single.Parse(line[4]),
                         Single.Parse(line[5]), Single.Parse(line[6]),
                         Single.Parse(line[7]));
-                    frames.Add(frame);
+                    _frames.Add(frame);
                 }
                 else if(line[0] == "Selection")
                 {
                     Selection select = new Selection(Int32.Parse(line[3]),
                         Int32.Parse(line[4]));
-                    selections.Add(select);
+                    _selects.Add(select);
                 }
                 else if(line[0] == "Segment:")
                 {
                     Segment seg = new Segment(Single.Parse(line[3]),
                         Single.Parse(line[4]), Single.Parse(line[5]),
                         Single.Parse(line[6]), line[9]);
-                    segments.Add(seg);
+                    _segs.Add(seg);
+                    if(line[9] == "EndRun")
+                    {
+                        breakFlag = true;
+                    }
                 }
             }
             reader.Close();
         }
         catch(Exception e)
         {
-            Debug.LogError("Error parsing file (1)!!");
+            Debug.LogError("Error parsing log!!");
             Debug.LogError(e);
             Application.Quit();
         }
@@ -122,7 +127,13 @@ public class LogReader : MonoBehaviour
         }
         fileName += "_run" + runNum + ".xml";
 
+        frames = new List<Frame>();
+        selects = new List<Selection>();
+        segs = new List<Segment>();
+
         ReadLog(fileName, frames, selects, segs);
+
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame

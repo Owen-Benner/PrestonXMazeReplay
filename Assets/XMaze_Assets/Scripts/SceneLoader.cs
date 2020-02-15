@@ -13,6 +13,8 @@ public class SceneLoader : MonoBehaviour
 
     private FileWriter writer;
 
+    public int mode;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,8 +38,12 @@ public class SceneLoader : MonoBehaviour
         if(Input.GetKey("5") && !counting)
         {
             counting = true;
-            writer.StartWriting();
+            if(mode != 3)
+            {
+                writer.StartWriting();
+            }
             countDownStart = Time.time;
         }
     }
+
 }

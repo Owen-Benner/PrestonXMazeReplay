@@ -42,7 +42,7 @@ public class FileWriter : MonoBehaviour
     private bool write = false;
     private bool XMazeLoaded = false;
 
-    private float startTime;
+    public float startTime;
 
     private static GazeDataEventArgs gaze;
 

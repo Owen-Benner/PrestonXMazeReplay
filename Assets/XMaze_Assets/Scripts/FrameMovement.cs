@@ -22,4 +22,9 @@ public class FrameMovement : MonoBehaviour
         
     }
 
+    public void MoveToFrame(float pose, float xPos, float zPos)
+    {
+
+    }
+
 }
