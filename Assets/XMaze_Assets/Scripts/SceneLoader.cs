@@ -38,7 +38,11 @@ public class SceneLoader : MonoBehaviour
         if(Input.GetKey("5") && !counting)
         {
             counting = true;
-            if(mode != 3)
+            if(mode == 3)
+            {
+                writer.SetStartTime();
+            }
+            else
             {
                 writer.StartWriting();
             }

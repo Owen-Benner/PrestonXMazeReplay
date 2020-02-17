@@ -137,8 +137,6 @@ public class FileWriter : MonoBehaviour
         writer.WriteLine(format0);
         writer.WriteLine(format1);
         writer.WriteLine(format2);
-
-        DontDestroyOnLoad(gameObject);
     }
 
     private void EyeTracker_GazeDataReceived(object sender, GazeDataEventArgs e)
@@ -166,6 +164,13 @@ public class FileWriter : MonoBehaviour
         WriteFrame();
         lastFrame = Time.time;
         Debug.Log("Writing!");
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public void SetStartTime()
+    {
+        startTime = Time.time;
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
