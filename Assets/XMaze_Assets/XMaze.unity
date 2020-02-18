@@ -1405,6 +1405,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   logReader: {fileID: 0}
+  frameMove: {fileID: 0}
+  writer: {fileID: 0}
+  rewardText: {fileID: 0}
+  scoreText: {fileID: 0}
 --- !u!1 &1809029950
 GameObject:
   m_ObjectHideFlags: 0

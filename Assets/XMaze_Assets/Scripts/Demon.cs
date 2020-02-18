@@ -109,8 +109,11 @@ public class Demon : MonoBehaviour
 
         if(mode == 3) //Switch demons.
         {
-            GetComponent<ReplayDemon>().enabled = true;
+            ReplayDemon replay = GetComponent<ReplayDemon>();
+            replay.enabled = true;
             this.enabled = false;
+            replay.rewardText = rewardText;
+            replay.scoreText = scoreText;
         }
         else
         {

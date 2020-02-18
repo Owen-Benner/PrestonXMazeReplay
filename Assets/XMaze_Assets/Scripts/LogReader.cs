@@ -42,14 +42,16 @@ public class LogReader : MonoBehaviour
         public float x;
         public float y;
         public string segment;
+        public int num;
 
-        public Segment(float p, float t, float _x, float _y, string s)
+        public Segment(float p, float t, float _x, float _y, string s, int n)
         {
             pose = p;
             time = t;
             x = _x;
             y = _y;
             segment = s;
+            num = n;
         }
     };
 
@@ -74,8 +76,8 @@ public class LogReader : MonoBehaviour
             reader.ReadLine();
             reader.ReadLine();
 
-            bool breakFlag = false;
-            while(!reader.EndOfStream && !breakFlag)
+            int breakCount = -1;
+            while(!reader.EndOfStream && breakCount != 0)
             {    
                 string [] line = reader.ReadLine().Split(' ');
                 if(line[0] == "Frame")
@@ -95,12 +97,16 @@ public class LogReader : MonoBehaviour
                 {
                     Segment seg = new Segment(Single.Parse(line[3]),
                         Single.Parse(line[4]), Single.Parse(line[5]),
-                        Single.Parse(line[6]), line[9]);
+                        Single.Parse(line[6]), line[9], Int32.Parse(line[8]));
                     _segs.Add(seg);
                     if(line[9] == "EndRun")
                     {
-                        breakFlag = true;
+                        breakCount = 5;
                     }
+                }
+                if(breakCount > 0)
+                {
+                    --breakCount;
                 }
             }
             reader.Close();
