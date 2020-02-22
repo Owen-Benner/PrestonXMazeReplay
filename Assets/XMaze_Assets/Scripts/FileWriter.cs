@@ -292,7 +292,8 @@ public class FileWriter : MonoBehaviour
     {
         writer.WriteLine("Selection " + demon.trialNum.ToString() + ":" + spc
                 + select.ToString() + spc + reward.ToString() + spc
-                + score.ToString());
+                + score.ToString() + spc + string.Format("{0:N3}", Time.time
+                - startTime));
     }
 
     public float getRunTime()

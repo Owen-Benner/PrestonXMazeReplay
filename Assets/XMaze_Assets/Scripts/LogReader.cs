@@ -27,11 +27,13 @@ public class LogReader : MonoBehaviour
     {
         public int reward;
         public int score;
+        public float time;
 
-        public Selection(int r, int s)
+        public Selection(int r, int s, float t)
         {
             reward = r;
             score = s;
+            time = t;
         }
     };
 
@@ -90,7 +92,7 @@ public class LogReader : MonoBehaviour
                 else if(line[0] == "Selection")
                 {
                     Selection select = new Selection(Int32.Parse(line[3]),
-                        Int32.Parse(line[4]));
+                        Int32.Parse(line[4]), Single.Parse(line[5]));
                     _selects.Add(select);
                 }
                 else if(line[0] == "Segment:")
@@ -110,6 +112,8 @@ public class LogReader : MonoBehaviour
                 }
             }
             reader.Close();
+            Selection dummy = new Selection(0, 0, Single.PositiveInfinity);
+            _selects.Add(dummy);
         }
         catch(Exception e)
         {

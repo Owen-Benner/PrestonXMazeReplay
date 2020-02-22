@@ -117,6 +117,24 @@ public class Demon : MonoBehaviour
             this.enabled = false;
             replay.rewardText = rewardText;
             replay.scoreText = scoreText;
+            replay.preRew = preRew;
+
+            replay.contexts = contexts;
+
+            replay.leftObjects = leftObjects;
+            replay.leftRewards = leftRewards;
+            replay.rightObjects = rightObjects;
+            replay.rightRewards = rightRewards;
+
+            replay.contextN = contextN;
+            replay.contextS = contextS;
+
+            replay.objectNE = objectNE;
+            replay.objectSE = objectSE;
+            replay.objectSW = objectSW;
+            replay.objectNW = objectNW;
+
+            replay.contextList = contextList;
         }
         else
         {
