@@ -12,6 +12,8 @@ public class ReplayDemon : MonoBehaviour
 
     public FileWriter writer;
 
+    public int direction;
+
     private float startTime;
 
     private bool replaying = false;
@@ -91,14 +93,21 @@ public class ReplayDemon : MonoBehaviour
             }
             if(seg.segment == "HoldA")
             {
+                //Clear contexts.
                 contextN.SendMessage(contextList[0]);
                 contextS.SendMessage(contextList[0]);
 
-                objectNE.SendMessage("Sprite", leftObjects[seg.num]);
-                objectSE.SendMessage("Sprite", rightObjects[seg.num]);
-                //May wish to specify direction.
-                objectSW.SendMessage("Sprite", leftObjects[seg.num]);
-                objectNW.SendMessage("Sprite", rightObjects[seg.num]);
+                //Check direction, then set objects.
+                if(direction == 1)
+                {
+                    objectNE.SendMessage("Sprite", leftObjects[seg.num]);
+                    objectSE.SendMessage("Sprite", rightObjects[seg.num]);
+                }
+                else if(direction == 2)
+                {
+                    objectSW.SendMessage("Sprite", leftObjects[seg.num]);
+                    objectNW.SendMessage("Sprite", rightObjects[seg.num]);
+                }
             }
             if(seg.segment == "Reward")
             {
@@ -106,11 +115,22 @@ public class ReplayDemon : MonoBehaviour
                 scoreText.text = logReader.selects[0].score.ToString();
                 logReader.selects.RemoveAt(0);
 
+                //Clear direction.
                 int zero = 0;
                 objectNE.SendMessage("Sprite", zero);
                 objectSE.SendMessage("Sprite", zero);
                 objectSW.SendMessage("Sprite", zero);
                 objectNW.SendMessage("Sprite", zero);
+                
+                //Update direction.
+                if(direction == 1)
+                {
+                    direction = 2;
+                }
+                else if(direction == 2)
+                {
+                    direction = 1;
+                } 
             }
             if(seg.segment == "EndRun")
             {

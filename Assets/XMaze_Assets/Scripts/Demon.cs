@@ -118,6 +118,8 @@ public class Demon : MonoBehaviour
             replay.rewardText = rewardText;
             replay.scoreText = scoreText;
             replay.preRew = preRew;
+            
+            replay.direction = direction;
 
             replay.contexts = contexts;
 
