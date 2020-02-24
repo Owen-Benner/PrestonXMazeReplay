@@ -115,7 +115,7 @@ public class ReplayDemon : MonoBehaviour
                 scoreText.text = logReader.selects[0].score.ToString();
                 logReader.selects.RemoveAt(0);
 
-                //Clear direction.
+                //Clear objects.
                 int zero = 0;
                 objectNE.SendMessage("Sprite", zero);
                 objectSE.SendMessage("Sprite", zero);
