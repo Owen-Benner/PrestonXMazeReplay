@@ -16,9 +16,11 @@ public class FileWriter : MonoBehaviour
 
     public int frameFreq = 24;
 
-    public string format0 = "%Frame frameNum: distHoriz distDiag pose time xPos"        + "  zPos leftEyeX leftEyeY leftPupil rightEyeX rightEyeY rightPupil";
-    public string format1 = "%Selection trialNum: chamber reward score";
-    public string format2 = "%Segment: distHoriz distDiag pose time xPos zPos"
+    private string format0 = "%Frame frameNum: distHoriz distDiag pose time"
+        + "xPos zPos leftEyeX leftEyeY leftPupil rightEyeX rightEyeY"
+        + "rightPupil";
+    private string format1 = "%Selection trialNum: chamber reward score";
+    private string format2 = "%Segment: distHoriz distDiag pose time xPos zPos"
         + " trialTime trialNum newSegment";
  
     private string fileName;
