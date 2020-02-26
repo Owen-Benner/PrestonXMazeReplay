@@ -12,6 +12,7 @@ public class SceneLoader : MonoBehaviour
     public float countDownStart;
 
     private FileWriter writer;
+    private EyeDots eyeDots;
 
     public int mode;
 
@@ -22,6 +23,7 @@ public class SceneLoader : MonoBehaviour
         async.allowSceneActivation = false;
 
         writer = GameObject.Find("FileWriter").GetComponent<FileWriter>();
+        eyeDots = GameObject.Find("LogReader").GetComponent<EyeDots>();
     }
 
     // Update is called once per frame
@@ -41,6 +43,7 @@ public class SceneLoader : MonoBehaviour
             if(mode == 3)
             {
                 writer.SetStartTime();
+                eyeDots.enabled = true;
             }
             else
             {

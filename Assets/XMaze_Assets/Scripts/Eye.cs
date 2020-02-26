@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Eye : MonoBehaviour
 {
@@ -16,20 +17,44 @@ public class Eye : MonoBehaviour
 
     private Transform pupil;
 
+    void Awake()
+    {
+        scale = transform.parent.GetComponent<CanvasScaler>();
+        scale.referenceResolution = new Vector2(xRes, yRes);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         pupil = transform.GetChild(0);
-        scale.referenceResolution = new Vector2(xRes, yRes);
+
+        GameObject.DontDestroyOnLoad(transform.parent.gameObject);
+        SceneManager.activeSceneChanged += ChangedActiveScene;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float xVal = (xPos * xRes + xRes) / 2;
-        float yVal = (yPos * yRes + yRes) / 2;
-        transform.position = new Vector3(xVal, yVal, transform.position.z);
+        float xVal = xPos * xRes - xRes / 2;
+        float yVal = -(yPos * yRes - yRes / 2);
+        transform.localPosition = new Vector3(xVal, yVal,
+            transform.localPosition.z);
 
         pupil.localScale = new Vector3(diameter, diameter, pupil.localScale.z);
+    }
+
+    void SwitchParent(Transform newParent)
+    {
+        transform.parent.gameObject.SetActive(false);
+        transform.SetParent(newParent);
+    }
+
+    private void ChangedActiveScene(Scene current, Scene next)
+    {
+        SwitchParent(GameObject.Find("Canvas_XMaze").transform);
+
+        scale = transform.parent.GetComponent<CanvasScaler>();
+        scale.referenceResolution = new Vector2(xRes, yRes);
+
     }
 }

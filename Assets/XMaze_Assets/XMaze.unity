@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1840436195}
-  m_IndirectSpecularColor: {r: 0.18029553, g: 0.2257272, b: 0.30693007, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -744,7 +744,7 @@ GameObject:
   - component: {fileID: 812160665}
   - component: {fileID: 812160664}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Canvas_XMaze
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -779,12 +779,12 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1024, y: 768}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1500,8 +1500,22 @@ MonoBehaviour:
   logReader: {fileID: 0}
   frameMove: {fileID: 0}
   writer: {fileID: 0}
+  direction: 0
   rewardText: {fileID: 0}
   scoreText: {fileID: 0}
+  preRew: 
+  contexts: 
+  leftObjects: 
+  leftRewards: 
+  rightObjects: 
+  rightRewards: 
+  contextN: {fileID: 0}
+  contextS: {fileID: 0}
+  objectNE: {fileID: 0}
+  objectSE: {fileID: 0}
+  objectSW: {fileID: 0}
+  objectNW: {fileID: 0}
+  contextList: []
 --- !u!1 &1807784146
 GameObject:
   m_ObjectHideFlags: 0

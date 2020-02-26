@@ -40,10 +40,14 @@ public class ReplayDemon : MonoBehaviour
 
     public string [] contextList;
 
+    private List<LogReader.Frame> frames;
+
     // Start is called before the first frame update
     void Start()
     {
         logReader = GameObject.Find("LogReader").GetComponent<LogReader>();
+        frames = new List<LogReader.Frame>(logReader.frames);
+
         frameMove = GetComponent<FrameMovement>();
         frameMove.enabled = true;
         writer = GameObject.Find("FileWriter").GetComponent<FileWriter>();
@@ -55,19 +59,19 @@ public class ReplayDemon : MonoBehaviour
     void Update()
     {
         //Skip to last applicable frame.
-        while(logReader.frames[1].time < Time.time - startTime)
+        while(frames[1].time < Time.time - startTime)
         {
-            logReader.frames.RemoveAt(0);
+            frames.RemoveAt(0);
         }
         //Check to read next frame.
-        LogReader.Frame frame = logReader.frames[0];
+        LogReader.Frame frame = frames[0];
         if(Time.time - startTime > frame.time)
         {
             if(replaying)
             {
                 frameMove.MoveToFrame(frame.pose, frame.x, frame.z);
             }
-            logReader.frames.RemoveAt(0);
+            frames.RemoveAt(0);
         }
 
         //Check to read next selection.

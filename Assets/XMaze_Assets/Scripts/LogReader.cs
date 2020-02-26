@@ -13,14 +13,34 @@ public class LogReader : MonoBehaviour
         public float time;
         public float x;
         public float z;
+        public float lx;
+        public float ly;
+        public float lp;
+        public float rx;
+        public float ry;
+        public float rp;
 
-        public Frame(float p, float t, float _x, float _z)
+        public Frame(float p, float t, float _x, float _z, string _lx,
+            string _ly, string _lp, string _rx, string _ry, string _rp)
         {
             pose = p;
             time = t;
             x = _x;
             z = _z;
-        }
+
+            if(!Single.TryParse(_lx, out lx))
+                lx = -100f;
+            if(!Single.TryParse(_ly, out ly))
+                ly = -100f;
+            if(!Single.TryParse(_lp, out lp))
+                lp = 0f;
+            if(!Single.TryParse(_rx, out rx))
+                rx = -100f;
+            if(!Single.TryParse(_ry, out ry))
+                ry = -100f;
+            if(!Single.TryParse(_rp, out rp))
+                rp = 0f;
+         }
     };
 
     public struct Selection
@@ -86,7 +106,8 @@ public class LogReader : MonoBehaviour
                 {
                     Frame frame = new Frame(Single.Parse(line[4]),
                         Single.Parse(line[5]), Single.Parse(line[6]),
-                        Single.Parse(line[7]));
+                        Single.Parse(line[7]), line[8], line[9], line[10],
+                        line[11], line[12], line[13]);
                     _frames.Add(frame);
                 }
                 else if(line[0] == "Selection")

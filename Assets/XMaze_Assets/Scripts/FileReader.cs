@@ -12,6 +12,7 @@ public class FileReader : MonoBehaviour
     public FileWriter writer;
     public LogReader logReader;
     public SceneLoader sceneLoader;
+    public EyeDots eyeDots;
 
     public GameObject[] sprites;
 
@@ -85,6 +86,7 @@ public class FileReader : MonoBehaviour
         writer = GameObject.Find("FileWriter").GetComponent<FileWriter>();
         sceneLoader = GameObject.Find("SceneLoader")
             .GetComponent<SceneLoader>();
+        eyeDots = GameObject.Find("LogReader").GetComponent<EyeDots>();
 
         try
         {
@@ -98,6 +100,7 @@ public class FileReader : MonoBehaviour
             logReader.runNum = writer.runNum;
             direction = int.Parse(startStr);
             writer.direction = direction;
+            eyeDots.writer = writer;
         }
         catch(Exception e)
         {
