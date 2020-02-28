@@ -28,7 +28,6 @@ public class Eye : MonoBehaviour
     {
         pupil = transform.GetChild(0);
 
-        GameObject.DontDestroyOnLoad(transform.parent.gameObject);
         SceneManager.activeSceneChanged += ChangedActiveScene;
     }
 
@@ -45,8 +44,7 @@ public class Eye : MonoBehaviour
 
     void SwitchParent(Transform newParent)
     {
-        transform.parent.gameObject.SetActive(false);
-        transform.SetParent(newParent);
+        transform.SetParent(newParent, false);
     }
 
     private void ChangedActiveScene(Scene current, Scene next)
@@ -55,6 +53,6 @@ public class Eye : MonoBehaviour
 
         scale = transform.parent.GetComponent<CanvasScaler>();
         scale.referenceResolution = new Vector2(xRes, yRes);
-
     }
+
 }

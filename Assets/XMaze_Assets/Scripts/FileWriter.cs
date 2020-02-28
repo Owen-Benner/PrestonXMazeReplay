@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 using Tobii.Research;
 
 public class FileWriter : MonoBehaviour
@@ -47,6 +48,8 @@ public class FileWriter : MonoBehaviour
     public float startTime;
 
     private static GazeDataEventArgs gaze;
+
+    public GameObject timestamp;
 
     private void WriteGaze()
     {
@@ -173,6 +176,9 @@ public class FileWriter : MonoBehaviour
     {
         startTime = Time.time;
         DontDestroyOnLoad(gameObject);
+
+        timestamp.GetComponent<Timestamp>().startTime = startTime;
+        timestamp.GetComponent<Text>().enabled = true;
     }
 
     // Update is called once per frame
