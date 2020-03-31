@@ -76,7 +76,7 @@ public class FileWriter : MonoBehaviour
         }
 
         point = gaze.RightEye.GazePoint;
-        if (point.Validity == Validity.Valid)
+        if(point.Validity == Validity.Valid)
         {
             writer.Write(spc + string.Format("{0:N3}",
                 + point.PositionOnDisplayArea.X) + spc + string.Format("{0:N3}",
@@ -88,7 +88,7 @@ public class FileWriter : MonoBehaviour
         }
 
         pupil = gaze.RightEye.Pupil;
-        if (pupil.Validity == Validity.Valid)
+        if(pupil.Validity == Validity.Valid)
         {
             writer.WriteLine(spc + string.Format("{0:N3}",
                 pupil.PupilDiameter));
@@ -113,7 +113,7 @@ public class FileWriter : MonoBehaviour
         }
 
         fileName = partCode + "_";
-        if (mode == 1)
+        if(mode == 1)
         {
             fileName += "practice";
         }
@@ -206,7 +206,7 @@ public class FileWriter : MonoBehaviour
             float distHori;
             float distDiag;
 
-            if (demon.direction == 1)
+            if(demon.direction == 1)
             {
                 distHori = Mathf.Abs(playPos.position.x - demon.eastXPos);
                 distDiag = Mathf.Sqrt(distHori * distHori
